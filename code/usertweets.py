@@ -22,7 +22,7 @@ class tweetdownloader():
             self._tweets.append(tweet['text'])
             tweetid = tweet['id']
             count = count + 1
-        while count < 3200 or attempt < 5:
+        '''while count < 3200 or attempt < 5:
             furthertweets = []
             try:
                 furthertweets.append(self.get_user_tweetsfrom(twitterhandle, tweetid))
@@ -30,7 +30,8 @@ class tweetdownloader():
                 print "count =",count
             except TwitterException:
                 attempt = attempt + 1
-                print "attempt =",attempt
+                print "attempt =",attempt'''
+        return self.get_user_tweetsfrom(twitterhandle, tweetid)
 
 
     def get_user_tweetsfrom(self, twitterhandle, sinceid):

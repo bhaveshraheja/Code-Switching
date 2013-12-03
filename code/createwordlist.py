@@ -33,18 +33,25 @@ Consequently, the license & copyright information for the same follows
 # POSSIBILITY OF SUCH DAMAGE.
 """
 Creates the wordlist
-Author: Bhavesh, December 2013
 """
 import argparse
 from collections import Counter
+from string import punctuation
 import codecs
 import sys
 
+PUNC = set(punctuation)
+BINARY = ['\x00','\x03','\x19']
+
 def _get_tokens(infile):
     for line in infile:
-        for token in line.split():
+        for token in filter(lambda x: not(x in BINARY),line).split():
             if _good_token(token):
-                yield token.lower()
+                yield _remove_punctuation(token.decode('utf-8')).lower()
+
+def _remove_punctuation(token):
+    return str(filter(lambda x: x not in PUNC, token))
+
 
 def _good_token(token):
     return not(token.isdigit())
