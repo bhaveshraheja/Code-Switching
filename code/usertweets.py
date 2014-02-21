@@ -19,7 +19,7 @@ class tweetdownloader():
         if count <= 200:
             tweets = self._twitter.get_user_timeline(screen_name=twitterhandle, count=count)
         for tweet in tweets:
-            self._tweets.append(tweet['text'])
+            self._tweets.append(tweet['text'].encode('UTF-8'))
             tweetid = tweet['id']
             count = count + 1
         '''while count < 3200 or attempt < 5:

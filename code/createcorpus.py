@@ -49,7 +49,7 @@ class createcorpus():
         links = crawler.crawl(starturl,200)
         return links
 
-    def countwords(self,starturl,crawl=False):
+    def downloadtext(self,starturl,crawl=False):
         if crawl:
             links = self._getlinks(starturl)
         else:
@@ -82,6 +82,7 @@ class createcorpus():
                 # Replaace the symbols like '/' to space
                 filtered_content.replace('/',' ')
                 
+                '''Commenting out for now 
                 # Transliterate the Devnagari text
                 romanised_unicode = iso15919.transliterate(filtered_content)
 
@@ -91,7 +92,11 @@ class createcorpus():
                 # Initialize the list of transformations
                 dr.createmap()
                 romanised_unicode = dr.remove(romanised_unicode)
+                '''
                 
+                # Temporary change because of above comment
+                romanised_unicode = filtered_content
+
                 # Compute Word Count
                 # Convert string to list of words
                 romanised = nltk.sent_tokenize(romanised_unicode)
@@ -101,7 +106,7 @@ class createcorpus():
                 #self._wordcount = self._merge(self._wordcount, Count)
                 
                 # Write the file 
-                filename = '../data/marathi/'+time.strftime("%Y%m%d-%H-%M")
+                filename = '../data/hindi/'+time.strftime("%Y%m%d-%H-%M")
                 f = open(filename, 'a')
                 f.write(' '.join(romanised).encode('UTF-16'))
                 print "Written text to file-",filename
